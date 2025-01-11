@@ -2,47 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>360° Video Skybox - Click to Play</title>
+    <title>360° Video Skybox</title>
+    <meta name="description" content="360 Video Skybox with A-Frame">
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script>
-      // Custom play-on-click component
-      AFRAME.registerComponent('play-on-click', {
-        init: function () {
-          const video = document.querySelector("#video"); // Reference the video element
-          this.el.addEventListener('click', () => {
-            video.play().catch(err => {
-              console.error("Error playing video on click:", err);
-            });
-          });
-        }
-      });
-    </script>
   </head>
   <body>
     <a-scene>
       <!-- Assets -->
       <a-assets>
-        <video id="video" 
-               loop 
-               crossorigin="anonymous" 
-               playsinline 
-               webkit-playsinline 
+        <!-- 360° Video -->
+        <video id="antarctica" autoplay loop="true" 
                src="dog.mp4">
         </video>
       </a-assets>
 
       <!-- Videosphere -->
-      <a-videosphere src="#video" play-on-click rotation="0 -90 0"></a-videosphere>
+      <a-videosphere src="dog.mp4" rotation="0 -90 0"></a-videosphere>
 
       <!-- Camera -->
-      <a-camera>
-        <a-entity position="0 0 -2" 
-                  text="align: center; 
-                        width: 6; 
-                        color: white; 
-                        value: Click to play the video">
-        </a-entity>
-      </a-camera>
+      <a-camera></a-camera>
     </a-scene>
   </body>
 </html>
