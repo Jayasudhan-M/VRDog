@@ -5,19 +5,28 @@
     <title>360° Video Skybox</title>
     <meta name="description" content="360 Video Skybox with A-Frame">
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const video = document.getElementById("antarctica");
+        video.addEventListener("ended", () => {
+          const scene = document.querySelector("a-scene");
+          scene.innerHTML = scene.innerHTML; // Reset the content of a-scene
+        });
+      });
+    </script>
   </head>
   <body>
     <a-scene>
       <!-- Assets -->
       <a-assets>
         <!-- 360° Video -->
-        <video id="antarctica" autoplay loop="true" 
+        <video id="antarctica" autoplay loop="false" 
                src="dog.mp4">
         </video>
       </a-assets>
 
       <!-- Videosphere -->
-      <a-videosphere src="dog.mp4" loop rotation="0 -90 0"></a-videosphere>
+      <a-videosphere src="#antarctica" rotation="0 -90 0"></a-videosphere>
 
       <!-- Camera -->
       <a-camera></a-camera>
