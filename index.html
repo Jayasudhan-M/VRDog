@@ -12,6 +12,8 @@
       <a-assets>
         <!-- 360° Video -->
         <video id="video" 
+               autoplay 
+               muted 
                loop 
                crossorigin="anonymous" 
                playsinline 
@@ -21,52 +23,10 @@
       </a-assets>
 
       <!-- Videosphere -->
-      <a-videosphere 
-        src="#video" 
-        rotation="0 -90 0"
-        play-on-click>
-      </a-videosphere>
+      <a-videosphere src="#video" rotation="0 -90 0"></a-videosphere>
 
-      <!-- Camera and Overlay Text -->
-      <a-camera>
-        <a-entity
-          position="0 0 -1.5"
-          text="align: center;
-                width: 6;
-                wrapCount: 50;
-                color: white;
-                value: Click or tap to start the video"
-          hide-on-play="#video">
-        </a-entity>
-      </a-camera>
+      <!-- Camera -->
+      <a-camera></a-camera>
     </a-scene>
-
-    <!-- Play-on-click and Hide-on-play scripts -->
-    <script>
-      // Play-on-click component
-      AFRAME.registerComponent('play-on-click', {
-        init: function () {
-          const videoEl = this.el.getAttribute('src');
-          this.el.addEventListener('click', function () {
-            const video = document.querySelector(videoEl);
-            if (!video.playing) {
-              video.play();
-            }
-          });
-        }
-      });
-
-      // Hide-on-play component
-      AFRAME.registerComponent('hide-on-play', {
-        schema: { type: 'selector' },
-        init: function () {
-          const videoEl = this.data;
-          const textEl = this.el;
-          videoEl.addEventListener('play', function () {
-            textEl.setAttribute('visible', false);
-          });
-        }
-      });
-    </script>
   </body>
 </html>
