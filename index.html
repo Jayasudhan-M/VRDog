@@ -2,44 +2,71 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>360 Video</title>
-    <meta name="description" content="360 Video — A-Frame">
-    <script src="../../../dist/aframe-master.js"></script>
-    <script src="../../js/play-on-click.js"></script>
-    <script src="../../js/hide-on-play.js"></script>
+    <title>360° Video Skybox</title>
+    <meta name="description" content="360 Video Skybox with A-Frame">
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   </head>
   <body>
     <a-scene>
+      <!-- Assets -->
       <a-assets>
-        <!--
-        SOURCE
-        Author: Bitmovin
-        URL:    https://bitmovin.com/demos/vr-360
-        -->
-        <video id="video"
-               loop
-               crossorigin="anonymous"
-               playsinline webkit-playsinline
-               muted
-               autoplay
+        <!-- 360° Video -->
+        <video id="video" 
+               loop 
+               crossorigin="anonymous" 
+               playsinline 
+               webkit-playsinline 
                src="dog.mp4">
         </video>
       </a-assets>
-      <a-videosphere
-        rotation="0 -90 0" src="#video">
+
+      <!-- Videosphere -->
+      <a-videosphere 
+        src="#video" 
+        rotation="0 -90 0"
+        play-on-click>
       </a-videosphere>
 
+      <!-- Camera and Overlay Text -->
       <a-camera>
         <a-entity
           position="0 0 -1.5"
-          text="align:center;
-                width:6;
-                wrapCount:100;
+          text="align: center;
+                width: 6;
+                wrapCount: 50;
                 color: white;
-                value: Click or tap to start video"
+                value: Click or tap to start the video"
           hide-on-play="#video">
         </a-entity>
       </a-camera>
     </a-scene>
+
+    <!-- Play-on-click and Hide-on-play scripts -->
+    <script>
+      // Play-on-click component
+      AFRAME.registerComponent('play-on-click', {
+        init: function () {
+          const videoEl = this.el.getAttribute('src');
+          this.el.addEventListener('click', function () {
+            const video = document.querySelector(videoEl);
+            if (!video.playing) {
+              video.play();
+            }
+          });
+        }
+      });
+
+      // Hide-on-play component
+      AFRAME.registerComponent('hide-on-play', {
+        schema: { type: 'selector' },
+        init: function () {
+          const videoEl = this.data;
+          const textEl = this.el;
+          videoEl.addEventListener('play', function () {
+            textEl.setAttribute('visible', false);
+          });
+        }
+      });
+    </script>
   </body>
 </html>
